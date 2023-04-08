@@ -24,7 +24,7 @@ marshmallow-sqlalchemy==0.29.0
 matplotlib
 numpy
 packaging==23.0
-pandas==2.0.0
+pandas
 Pillow==9.5.0
 psycopg2-binary==2.9.6
 pyparsing==3.0.9

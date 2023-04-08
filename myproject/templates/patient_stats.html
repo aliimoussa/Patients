@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} patient statistics {%endblock%}
+{% block content %}
+
+
+<table>
+    <tr>
+        <th>Statistic</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Minimum Date of Birth</td>
+        <td>{{ stats['date_of_birth']['min'] }}</td>
+    </tr>
+    <tr>
+        <td>Maximum Date of Birth</td>
+        <td>{{ stats['date_of_birth']['max'] }}</td>
+    </tr>
+    <tr>
+        <td>Mean Date of Birth</td>
+        <td>{{ stats['date_of_birth']['mean'] }}</td>
+    </tr>
+    <tr>
+        <td>Count of Phone Numbers</td>
+        <td>{{ stats['phone_number']['count'] }}</td>
+    </tr>
+    <tr>
+        <td>Most Common Insurance Plan</td>
+        <td>{{ stats['insurance_plan']['<lambda></lambda>'] }}</td>
+    </tr>
+    <tr>
+        <td>Most Common Treatment Plan</td>
+        <td>{{ stats['treatment_plan']['
+            <lambda></lambda>'] }}
+        </td>
+    </tr>
+</table>
+{%endblock%}

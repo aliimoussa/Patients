@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NextCare Dashboard</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+
+</head>
+<body>
+<div class="container py-3">
+    <header>
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a href="./" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+                <img class="logo" src="{{ url_for('static', filename='img/logo.svg') }}">
+            </a>
+            <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                <a class="me-3 py-2 link-body-emphasis text-decoration-none bold1 color1" href="/">Main</a>
+                <a  class="me-3 py-2 link-body-emphasis text-decoration-none bold1 color1" href="{{url_for('analysis.age_analysis')}}">Analysis</a>
+            </nav>
+        </div>
+        {% block content %}
+        {% endblock %}
+    </header>
+</div>
+
+<script src="{{ url_for('static', filename='/js/jquery-3.6.4.min.js') }}"></script>
+<script src="{{ url_for('static', filename='/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='/js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %} NextCare Dashboard {%endblock%}
+{% block content %}
+<div class="row">
+    <div class="col-md-4"><img class="w-100" src="data:image/png;base64,{{ result['age_analysis'] }}" alt="Age distribution chart"></div>
+    <div class="col-md-4"><img class="w-100" src="data:image/png;base64,{{ result['medication_frequency'] }}" alt="Medication Frequency"></div>
+    <div class="col-md-4"><img class="w-100" src="data:image/png;base64,{{ result['get_medication_dosages'] }}" alt="Medication Dosages"></div>
+</div>
+{%endblock%}
+

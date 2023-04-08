@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %} NextCare Dashboard {%endblock%}
+{% block content %}
+<main>
+    <div class="row">
+        <div class="col-md-12 mb-2" style="position: relative;">
+            <h4><span class="bold1 color1">Patients Profiles</span></h4>
+            <div class="uploadcsv">
+                <button class="btn btn-outline-primary btn-sm uploadcsvbtn">
+                    <input multiple type="file" accept=".csv" class="uploader">
+                    Import CSV
+                </button>
+            </div>
+        </div>
+        <div class="col-md-12 mb-2">
+            <div class="row search-panel py-2 mx-0">
+                <div class="col-md-5 mb-2">
+                    <label class="mb-2">Text Search</label>
+                    <input id="search" placeholder="Search" class="form-control" autocomplete="off">
+                </div>
+                <div class="col-md-4 mb-2">
+                    <label for="sort-column" class="mb-2">Sort By</label>
+                    <form id="sort-form" method="POST">
+                          <select name="column_name" id="sort-column" class="form-select trigger_filter">
+                              <option value="">--Select--</option>
+                              <option value="first_name">First Name</option>
+                              <option value="last_name">Last Name</option>
+                              <option value="date_of_birth">Date of Birth</option>
+                              <option value="phone_number">Phone Number</option>
+                              <option value="insurance_plan">Insurance Plan</option>
+                              <option value="treatment_plan">Treatment Plan</option>
+                          </select>
+                        </form>
+                </div>
+
+
+                <div class="col-md-3 mb-2">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="mb-2">From Age</label>
+                            <select autocomplete="off" id="from_age" class="form-select years"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2">To Age</label>
+                            <select autocomplete="off" id="to_age" class="form-select years"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive overflowunset mt-2">
+        <div class="w-100 my-2 mb-3">Total Patients: <span style="font-weight:600" id="total_patients">...</span></div>
+        <table class="table align-middle overflowunset">
+            <thead class="tableheader">
+            <th>Full Name</th>
+            <th>Phone Number</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>Insurance Plan</th>
+            <th class="text-center">Medications</th>
+            </thead>
+            <tbody id="patients_data">
+
+            </tbody>
+        </table>
+    </div>
+</main>
+<!-- medications modal -->
+<div class="modal fade" id="patient_meds_modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Medications</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <th>Name</th>
+                    <th>Dosage</th>
+                    <th>Frequency</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    </thead>
+                    <tbody id="patient_medications"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+

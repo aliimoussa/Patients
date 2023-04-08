@@ -16,13 +16,11 @@ class PatientList(Resource):
 
         data = request.get_json()
         column_name = data.get('column_name')
-        print(column_name)
         search_param = data.get('search')
         sort_order = request.args.get('sort_order', 'desc')
 
         page = data.get('page', 1)
 
-        # return
         per_page = data.get('per_page', 10)
         search_term = f'%{search_param}%'
 

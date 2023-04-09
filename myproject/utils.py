@@ -3,6 +3,7 @@ from datetime import date
 import pandas as pd
 
 from myproject.models import Patient, Medication
+from .error_handling import InvalidCSVFileError
 from .extensions import db
 
 
@@ -18,8 +19,21 @@ def upload_data(file):
 
     if patient_header.issubset(actual_headers):
         insert_patients_from_csv(df)
+        return {
+            'error': False,
+            'message': 'Patients data uploaded successfully.',
+            'data': df.to_dict('records')
+        }
     elif medication_header.issubset(actual_headers):
         insert_medication(df)
+        return {
+            'error': False,
+            'message': 'Medication data uploaded successfully.',
+            'data': df.to_dict('records')
+        }
+    else:
+        error_msg = 'The CSV file does not contain the expected headers. Please ensure that the file has the correct format.'
+        raise InvalidCSVFileError(error_msg)
 
 
 def insert_medication(df):
@@ -47,11 +61,11 @@ def insert_medication(df):
                 patient_id=patient.id
             ).first()
 
-            if existing_medication:
-                # Handle the case where the medication record already exists
-                # todo log
-                print(f"Medication record already exists for patient with phone number {row['phone_number']}.")
-                continue
+            # if existing_medication:
+            #     # Handle the case where the medication record already exists
+            #     # todo log
+            #     print(f"Medication record already exists for patient with phone number {row['phone_number']}.")
+            #     continue
 
             # Create a new medication object
             medication = Medication(
@@ -122,10 +136,10 @@ def clean_csv_data(df):
     df = df.dropna(how='any')
     # Convert date columns to datetime objects
     date_columns = ['date_of_birth', 'start_date', 'end_date']
-    # Check that the date_of_birth column is a valid date
     for column in date_columns:
         if column in df.columns:
-            df.loc[:, column] = pd.to_datetime(df[column])
+            df[column] = pd.to_datetime(df[column], errors='coerce')
+            df = df[df[column].notnull()]
     return df
 
 

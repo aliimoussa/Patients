@@ -1,0 +1,2 @@
+class InvalidCSVFileError(Exception):
+    pass

@@ -4,6 +4,7 @@ from flask_restful import Resource
 from sqlalchemy import or_
 
 from myproject.decorators import transactional
+from myproject.error_handling import InvalidCSVFileError
 from myproject.models import Medication, Patient
 from myproject.schemas.schemas import PatientSchema, MedicationSchema
 from myproject.utils import upload_data
@@ -98,17 +99,14 @@ def upload_csv_data():
             'data': []
         })
     try:
-        upload_data(file)
-        # return PatientList().post()
-        return jsonify({
-            'error': False,
-            'message': 'Data Uploaded !!',
-            'data': []
-        })
-
-    except ValueError:
+        file = request.files['file']
+        result = upload_data(file)
+        return jsonify(result), 200
+    except InvalidCSVFileError as e:
         return jsonify({
             'error': True,
-            'message': 'Error when uploaded file',
+            'message': str(e),
             'data': []
-        })
+        }), 400
+
+

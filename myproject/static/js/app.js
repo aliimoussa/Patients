@@ -1,8 +1,12 @@
 /* API endpoints */
+//
+// var endpoint_get_patients = 'https://patients-977g.onrender.com/patients';
+// var endpoint_get_patient_medications = `https://patients-977g.onrender.com/api/patients/patient_id/medications`;
+// var endpoint_upload_csv = 'https://patients-977g.onrender.com/api/upload_csv';
 
-var endpoint_get_patients = 'https://patients-977g.onrender.com/patients';
-var endpoint_get_patient_medications = `https://patients-977g.onrender.com/api/patients/patient_id/medications`;
-var endpoint_upload_csv = 'https://patients-977g.onrender.com/api/upload_csv';
+var endpoint_get_patients = 'http://127.0.0.1:5000/patients';
+var endpoint_get_patient_medications = `http://127.0.0.1:5000/api/patients/patient_id/medications`;
+var endpoint_upload_csv = 'http://127.0.0.1:5000/api/upload_csv';
 
 /* paging variable */
 var current_page = 1;

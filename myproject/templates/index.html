@@ -21,28 +21,24 @@
                 <div class="col-md-4 mb-2">
                     <label for="sort-column" class="mb-2">Sort By</label>
                     <form id="sort-form" method="POST">
-                          <select name="column_name" id="sort-column" class="form-select trigger_filter">
-                              <option value="">--Select--</option>
-                              <option value="first_name">First Name</option>
-                              <option value="last_name">Last Name</option>
-                              <option value="date_of_birth">Date of Birth</option>
-                              <option value="phone_number">Phone Number</option>
-                              <option value="insurance_plan">Insurance Plan</option>
-                              <option value="treatment_plan">Treatment Plan</option>
-                          </select>
-                        </form>
+                        <select name="column_name" id="sort-column" class="form-select trigger_filter">
+                            <option value="">--Select--</option>
+                            <option value="first_name">First Name</option>
+                            <option value="last_name">Last Name</option>
+                            <option value="date_of_birth">Date of Birth</option>
+                            <option value="phone_number">Phone Number</option>
+                            <option value="insurance_plan">Insurance Plan</option>
+                            <option value="treatment_plan">Treatment Plan</option>
+                        </select>
+                    </form>
                 </div>
 
 
                 <div class="col-md-3 mb-2">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="mb-2">From Age</label>
                             <select autocomplete="off" id="from_age" class="form-select years"></select>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="mb-2">To Age</label>
-                            <select autocomplete="off" id="to_age" class="form-select years"></select>
                         </div>
                     </div>
                 </div>
@@ -68,7 +64,7 @@
 </main>
 <!-- medications modal -->
 <div class="modal fade" id="patient_meds_modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Medications</h1>

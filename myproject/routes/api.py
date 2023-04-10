@@ -1,7 +1,10 @@
-from flask import Blueprint, render_template
+from datetime import date, timedelta, datetime
+
+from flask import Blueprint
 from flask import jsonify, request
 from flask_restful import Resource
-from sqlalchemy import or_
+from sqlalchemy import or_, cast, Date
+from sqlalchemy.sql.functions import coalesce
 
 from myproject.decorators import transactional
 from myproject.error_handling import InvalidCSVFileError
@@ -14,9 +17,12 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 class PatientList(Resource):
     def post(self):
-
+        selected_age = 0
         data = request.get_json()
+        if 'age' in data and data.get('age').strip():
+            selected_age = int(data.get('age'))
         column_name = data.get('column_name')
+
         search_param = data.get('search')
         sort_order = request.args.get('sort_order', 'desc')
 
@@ -25,8 +31,16 @@ class PatientList(Resource):
         per_page = data.get('per_page', 10)
         search_term = f'%{search_param}%'
 
+        patient_schema = PatientSchema(many=True)
         # initialize result
         results = Patient.query
+        if selected_age:
+            # calculate dob based on selected age
+            dob = datetime.now() - timedelta(days=365 * selected_age)
+            dob_date = dob.date()  # extract date from datetime object
+            print(f"dob={dob_date}")
+            results = results.filter(
+                cast(Patient.date_of_birth, Date) <= dob_date)
 
         # sort
         if column_name:
@@ -45,17 +59,16 @@ class PatientList(Resource):
                     Patient.insurance_plan.ilike(search_term))
             )
 
-        results = results.paginate(page=page, per_page=per_page, error_out=False)
+        if results:
+            results = results.paginate(page=page, per_page=per_page, error_out=False)
 
-        patient_schema = PatientSchema(many=True)
-
-        return jsonify({
-            'error': False,
-            'message': 'All Patients',
-            'data': patient_schema.dump(results.items),
-            'total_pages': results.pages,
-            'total_items': results.total
-        })
+            return jsonify({
+                'error': False,
+                'message': 'All Patients',
+                'data': patient_schema.dump(results.items),
+                'total_pages': results.pages,
+                'total_items': results.total
+            })
 
 
 @api_bp.route('/patients/<int:patient_id>/medications', methods=['get'])
@@ -108,5 +121,3 @@ def upload_csv_data():
             'message': str(e),
             'data': []
         }), 400
-
-

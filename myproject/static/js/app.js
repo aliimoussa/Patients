@@ -1,12 +1,9 @@
 /* API endpoints */
 //
-// var endpoint_get_patients = 'https://patients-977g.onrender.com/patients';
-// var endpoint_get_patient_medications = `https://patients-977g.onrender.com/api/patients/patient_id/medications`;
-// var endpoint_upload_csv = 'https://patients-977g.onrender.com/api/upload_csv';
+var endpoint_get_patients = 'https://patients-977g.onrender.com/patients';
+var endpoint_get_patient_medications = `https://patients-977g.onrender.com/api/patients/patient_id/medications`;
+var endpoint_upload_csv = 'https://patients-977g.onrender.com/api/upload_csv';
 
-var endpoint_get_patients = 'http://127.0.0.1:5000/patients';
-var endpoint_get_patient_medications = `http://127.0.0.1:5000/api/patients/patient_id/medications`;
-var endpoint_upload_csv = 'http://127.0.0.1:5000/api/upload_csv';
 
 /* paging variable */
 var current_page = 1;
@@ -39,6 +36,8 @@ function build_patients_data() {
 
     /* search and filters data */
     var search = $('#search').val();
+    var column_name = $('#sort-column').val();
+    var age = $('#from_age').val();
 
     $('#load_more_patients_data, #loading_patients_data').remove();
 
@@ -48,11 +47,12 @@ function build_patients_data() {
         document.getElementById(table_body).innerHTML += `<tr id="loading_patients_data"><td colspan="12">Loading ...</td></tr>`;
     }
 
-    var column_name = $('#sort-column').val();
+
 
     var json_data = JSON.stringify({
             "search": search,
             "column_name": column_name,
+            "age":age,
             "page": current_page
         });
 
@@ -173,7 +173,7 @@ $(function () {
 });
 
 /* user filter event on text search */
-$(document).on('input', '#search, #sort-by', function () {
+$(document).on('input', '#search, #sort-by, #from_age', function () {
 
     /* get and show patients data for example 700 ms */
     delay(function () {

@@ -13,11 +13,7 @@ ma = Marshmallow()
 def create_app():
     app = Flask(__name__)
     api_rest = Api(app)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://aiia:aiia2020@localhost:5432/health'
-    # app.config[
-    #     'SQLALCHEMY_DATABASE_URI'] = 'postgresql://alimoussa:7iDSkjEpzJAAmhoeAgdJxIalHCSu2l4o@dpg-cgot0c8u9tun42r5lfvg-a.frankfurt-postgres.render.com/healthcare_4ko1'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://alimoussa:7iDSkjEpzJAAmhoeAgdJxIalHCSu2l4o@dpg-cgot0c8u9tun42r5lfvg-a.frankfurt-postgres.render.com/healthcare_4ko1'
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

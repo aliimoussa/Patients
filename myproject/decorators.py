@@ -3,7 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://aiia:aiia2020@localhost:5432/health'
+# todo must be removed
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = 'postgresql://alimoussa:7iDSkjEpzJAAmhoeAgdJxIalHCSu2l4o@dpg-cgot0c8u9tun42r5lfvg-a.frankfurt-postgres.render.com/healthcare_4ko1'
+
 db = SQLAlchemy(app)
 
 
